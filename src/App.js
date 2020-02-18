@@ -1,7 +1,13 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import PokemonList from './pages/PokemonList';
 
 function App() {
-  return <h1>Pokemon App</h1>;
+  return (
+    <Switch>
+      <Route path="/" exact component={PokemonList} />
+    </Switch>
+  );
 }
 
 export default App;
