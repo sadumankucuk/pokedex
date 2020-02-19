@@ -11,18 +11,18 @@ export const pokemonListReducers = (
   action
 ) => {
   switch (action.type) {
-    case actionTypes.FETCH_POKEMON_LIST_PENDING:
+    case actionTypes.GET_POKEMON_LIST:
       return {
         ...state,
         loadingPokemonList: true
       };
-    case actionTypes.FETCH_POKEMON_LIST_FULFILLED:
+    case actionTypes.GET_POKEMON_LIST_SUCCESS:
       return {
         ...state,
         loadingPokemonList: false,
         pokemonList: action.payload
       };
-    case actionTypes.FETCH_POKEMON_LIST_REJECTED:
+    case actionTypes.GET_POKEMON_LIST_FAILED:
       return {
         ...state,
         loadingPokemonList: false,

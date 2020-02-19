@@ -1,16 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import TableComponent from '../component/TableComponent';
 import { connect } from 'react-redux';
 import { fetchPokemonList } from '../redux/actions/pokemon.actions';
 
-function PokemonList(props) {
-  const { fetchPokemonList } = props;
+const PokemonList = props => {
+  const { fetchPokemonList, pokemonList } = props;
+  const [columns] = useState([
+    { title: 'Name', field: 'name' },
+    { title: 'Supertype', field: 'supertype' },
+    { title: 'Evolves From', field: 'evolvesFrom' },
+    { title: 'HP', field: 'hp' },
+    { title: 'Rarity', field: 'rarity' },
+    { title: 'Image Url', field: 'imageUrl' }
+  ]);
 
   useEffect(() => {
     fetchPokemonList();
   }, [fetchPokemonList]);
 
-  return <h1>Pokemon</h1>;
-}
+  return (
+    <div style={{ margin: 40 }}>
+      <h1>Pokemon</h1>
+      <TableComponent columns={columns} data={pokemonList} />
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
   const { pokemonList } = state.pokemonList;
