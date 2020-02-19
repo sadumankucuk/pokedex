@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import TableComponent from '../component/TableComponent';
 import { connect } from 'react-redux';
-import { fetchPokemonList } from '../redux/actions/pokemon.actions';
+import { getPokemonList } from '../redux/actions/pokemon.actions';
 
 const PokemonList = props => {
-  const { fetchPokemonList, pokemonList } = props;
+  const { getPokemonList, pokemonList } = props;
   const [columns] = useState([
     { title: 'Name', field: 'name' },
     { title: 'Supertype', field: 'supertype' },
@@ -15,8 +15,8 @@ const PokemonList = props => {
   ]);
 
   useEffect(() => {
-    fetchPokemonList();
-  }, [fetchPokemonList]);
+    getPokemonList();
+  }, [getPokemonList]);
 
   return (
     <div style={{ margin: 40 }}>
@@ -28,12 +28,11 @@ const PokemonList = props => {
 
 const mapStateToProps = state => {
   const { pokemonList } = state.pokemonList;
-  console.log('state:', state.pokemonList);
   return { pokemonList };
 };
 
 const mapDispatchToProps = {
-  fetchPokemonList
+  getPokemonList
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PokemonList);

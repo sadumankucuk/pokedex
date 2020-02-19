@@ -1,22 +1,22 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export function fetchPokemonList() {
+export function getPokemonList() {
   return dispatch => {
     dispatch({ type: actionTypes.GET_POKEMON_LIST });
     axios
       .get('https://api.pokemontcg.io/v1/cards')
       .then(response => {
-        const pokemonFilter = response.data.cards.filter(
+        const pokemonListFilter = response.data.cards.filter(
           pokemon => pokemon.evolvesFrom && pokemon.rarity !== ''
         );
-        return pokemonFilter;
+        return pokemonListFilter;
       })
       .then(response => {
-        const formattedData = formatPokemonData(response);
+        const formattedPokemonList = formatPokemonListData(response);
         dispatch({
           type: actionTypes.GET_POKEMON_LIST_SUCCESS,
-          payload: formattedData
+          payload: formattedPokemonList
         });
       })
       .catch(error =>
@@ -25,7 +25,7 @@ export function fetchPokemonList() {
   };
 }
 
-const formatPokemonData = data => {
+const formatPokemonListData = data => {
   return data.map(pokemon => {
     return {
       id: pokemon.id,
@@ -37,4 +37,40 @@ const formatPokemonData = data => {
       imageUrl: pokemon.imageUrl
     };
   });
+};
+
+export const getPokemon = pokemonId => {
+  return dispatch => {
+    dispatch({ type: actionTypes.GET_POKEMON });
+    axios
+      .get(`https://api.pokemontcg.io/v1/cards/${pokemonId}`)
+      .then(response => {
+        const formattedPokemonData = formatPokemonData(response.data.card);
+        dispatch({
+          type: actionTypes.GET_POKEMON_SUCCESS,
+          payload: formattedPokemonData
+        });
+      })
+      .catch(error =>
+        dispatch({ type: actionTypes.GET_POKEMON_FAILED, payload: error })
+      );
+  };
+};
+
+const formatPokemonData = data => {
+  return {
+    id: data.id,
+    name: data.name,
+    supertype: data.supertype,
+    evolvesFrom: data.evolvesFrom,
+    hp: data.hp,
+    rarity: data.rarity,
+    imageUrl: data.imageUrl,
+    attacks: data.attacks.map(attack => {
+      return {
+        name: attack.name,
+        damage: attack.damage
+      };
+    })
+  };
 };
