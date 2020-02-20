@@ -8,10 +8,12 @@ import {
   TableHead,
   TableRow,
   Paper,
-  TablePagination
+  TablePagination,
+  Backdrop,
+  CircularProgress
 } from '@material-ui/core';
 
-const TableComponent = ({ data, columns }) => {
+const TableComponent = ({ data, columns, loading }) => {
   let history = useHistory();
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [page, setPage] = React.useState(0);
@@ -27,43 +29,53 @@ const TableComponent = ({ data, columns }) => {
 
   return (
     <>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {columns.map((column, index) => (
-                <TableCell key={index}>{column.title}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((data, index) => {
-                return (
-                  <TableRow
-                    hover
-                    key={index}
-                    onClick={() => history.push(`/pokemon/${data.id}`)}
-                  >
-                    {columns.map((column, index) => (
-                      <TableCell key={index}>{data[column.field]}</TableCell>
-                    ))}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={data.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
+      {loading ? (
+        <Backdrop open={loading}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : (
+        <>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {columns.map((column, index) => (
+                    <TableCell key={index}>{column.title}</TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((data, index) => {
+                    return (
+                      <TableRow
+                        hover
+                        key={index}
+                        onClick={() => history.push(`/pokemon/${data.id}`)}
+                      >
+                        {columns.map((column, index) => (
+                          <TableCell key={index}>
+                            {data[column.field]}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={data.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+        </>
+      )}
     </>
   );
 };

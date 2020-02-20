@@ -14,8 +14,8 @@ const Pokemon = props => {
 };
 
 const mapStateToProps = state => {
-  const { pokemon, loadingPokemon } = state.pokemon;
-  return { pokemon, loadingPokemon };
+  const { pokemon } = state.pokemon;
+  return { pokemon };
 };
 
 const mapDispatchToProps = {

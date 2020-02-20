@@ -39,6 +39,9 @@ const CardComponent = ({ pokemon }) => {
         />
       </Grid>
       <Grid item xs={12} sm={12}>
+        <Typography variant="h5">Pokédex</Typography>
+      </Grid>
+      <Grid item xs={12} sm={12}>
         {pokemon.imageUrl ? (
           <Card style={{ minWidth: 345 }}>
             <Grid container direction="row" spacing={3}>

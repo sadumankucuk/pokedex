@@ -11,6 +11,7 @@ import {
 
 const PokemonList = props => {
   const {
+    loadingPokemonList,
     getPokemonList,
     pokemonList,
     search,
@@ -38,7 +39,7 @@ const PokemonList = props => {
     filterByRarity(rarity);
   }, [filterByRarity, rarity]);
 
-  const handleChange = event => {
+  const handleChangeSearch = event => {
     search(event.target.value);
   };
 
@@ -55,7 +56,11 @@ const PokemonList = props => {
     <div style={{ margin: 40 }}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={10}>
-          <TextField label="Search" type="search" onChange={handleChange} />
+          <TextField
+            label="Search"
+            type="search"
+            onChange={handleChangeSearch}
+          />
         </Grid>
         <Grid item xs={6} sm={1}>
           <Select value={rarity} onChange={handleChangeFilter} displayEmpty>
@@ -80,7 +85,11 @@ const PokemonList = props => {
           </Select>
         </Grid>
         <Grid item xs={12} sm={12}>
-          <TableComponent columns={columns} data={pokemonList} />
+          <TableComponent
+            columns={columns}
+            data={pokemonList}
+            loading={loadingPokemonList}
+          />
         </Grid>
       </Grid>
     </div>
@@ -88,9 +97,8 @@ const PokemonList = props => {
 };
 
 const mapStateToProps = state => {
-  const { pokemonList, uniqueRarity } = state.pokemonList;
-  console.log(state.pokemonList);
-  return { pokemonList, uniqueRarity };
+  const { pokemonList, uniqueRarity, loadingPokemonList } = state.pokemonList;
+  return { pokemonList, uniqueRarity, loadingPokemonList };
 };
 
 const mapDispatchToProps = {
