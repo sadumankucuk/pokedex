@@ -1,25 +1,21 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getPokemon } from '../redux/actions/pokemon.actions';
+import CardComponent from '../component/CardComponent';
 
 const Pokemon = props => {
-  const { getPokemon, match } = props;
+  const { getPokemon, match, pokemon } = props;
 
   useEffect(() => {
     getPokemon(match.params.id);
   }, [getPokemon, match]);
 
-  return (
-    <div>
-      <h1>Pokemon</h1>
-    </div>
-  );
+  return <CardComponent pokemon={pokemon} />;
 };
 
 const mapStateToProps = state => {
-  const { pokemon } = state.pokemon;
-  console.log('state:', state.pokemon);
-  return { pokemon };
+  const { pokemon, loadingPokemon } = state.pokemon;
+  return { pokemon, loadingPokemon };
 };
 
 const mapDispatchToProps = {
