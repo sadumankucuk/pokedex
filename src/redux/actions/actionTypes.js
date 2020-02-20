@@ -5,3 +5,7 @@ export const GET_POKEMON_LIST_FAILED = 'GET_POKEMON_LIST_FAILED';
 export const GET_POKEMON = 'GET_POKEMON';
 export const GET_POKEMON_SUCCESS = 'GET_POKEMON_SUCCESS';
 export const GET_POKEMON_FAILED = 'GET_POKEMON_FAILED';
+
+export const SEARCH = 'SEARCH';
+export const FILTER = 'FILTER';
+export const SORT = 'SORT';

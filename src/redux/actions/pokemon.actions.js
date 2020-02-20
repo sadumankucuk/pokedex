@@ -74,3 +74,21 @@ const formatPokemonData = data => {
     })
   };
 };
+
+export const search = value => {
+  return dispatch => {
+    dispatch({ type: actionTypes.SEARCH, payload: value });
+  };
+};
+
+export const filterByRarity = value => {
+  return dispatch => {
+    dispatch({ type: actionTypes.FILTER, payload: value });
+  };
+};
+
+export const sortByHp = value => {
+  return dispatch => {
+    dispatch({ type: actionTypes.SORT, payload: value });
+  };
+};
