@@ -64,8 +64,8 @@ export const pokemonListReducers = (
         ...state,
         pokemonList:
           sortType === 'asc'
-            ? state.pokemonList.sort((a, b) => b.hp - a.hp)
-            : state.pokemonList.sort((a, b) => a.hp - b.hp)
+            ? state.pokemonList.sort((a, b) => a.hp - b.hp)
+            : state.pokemonList.sort((a, b) => b.hp - a.hp)
       };
     default:
       return state;
