@@ -1,6 +1,6 @@
 # React JS - Redux Pokémon 
 
-* API - [https://docs.pokemontcg.io] (https://docs.pokemontcg.io)
+* API - https://docs.pokemontcg.io
 
 Bu projede React, Redux, axios, combineReducers ve ApplyMiddleware kullandım.
 
