@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router';
 import { getPokemon } from '../redux/actions/pokemon.actions';
 import CardComponent from '../component/CardComponent';
 
 const Pokemon = props => {
-  const { getPokemon, match, pokemon } = props;
+  const { getPokemon, pokemon } = props;
+
+  const { id } = useParams();
 
   useEffect(() => {
-    getPokemon(match.params.id);
-  }, [getPokemon, match]);
+    getPokemon(id);
+  }, [getPokemon, id]);
 
   return <CardComponent pokemon={pokemon} />;
 };
