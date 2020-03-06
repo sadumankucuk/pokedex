@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router';
@@ -11,7 +12,7 @@ const Pokemon = props => {
 
   useEffect(() => {
     getPokemon(id);
-  }, [getPokemon, id]);
+  }, [id]);
 
   return <CardComponent pokemon={pokemon} />;
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { TextField, Grid, Select, MenuItem } from '@material-ui/core';
 import TableComponent from '../component/TableComponent';
@@ -31,13 +32,11 @@ const PokemonList = props => {
     { title: 'Image Url', field: 'imageUrl' }
   ]);
 
-  useEffect(() => {
-    getPokemonList();
-  }, [getPokemonList]);
+  useEffect(getPokemonList, []);
 
   useEffect(() => {
     filterByRarity(rarity);
-  }, [filterByRarity, rarity]);
+  }, [rarity]);
 
   const handleChangeSearch = event => {
     search(event.target.value);
